@@ -10,6 +10,6 @@ app.get('*', (req, res) => {
   res.status(200).sendFile(path.resolve(__dirname, 'dist/index.html'));
 });
 
-app.listen(8080, () => {
+app.listen(port, () => {
   console.log('Application listening on port ' + port);
 });
