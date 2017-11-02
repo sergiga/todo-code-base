@@ -5,9 +5,6 @@ sudo mkdir -p /usr/local/lib /usr/local/bin
 sudo tar -xvzf heroku-linux-amd64.tar.gz -C /usr/local/lib
 sudo ln -s /usr/local/lib/heroku/bin/heroku /usr/local/bin/heroku
 
-echo $HEROKU_LOGIN
-echo $HEROKU_API_KEY
-
 cat > ~/.netrc << EOF
 machine api.heroku.com
   login $HEROKU_LOGIN
@@ -16,3 +13,5 @@ machine git.heroku.com
   login $HEROKU_LOGIN
   password $HEROKU_API_KEY
 EOF
+
+cat ~/.netrc
