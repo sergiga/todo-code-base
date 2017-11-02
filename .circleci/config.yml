@@ -18,3 +18,12 @@ jobs:
       - run:
           name: Run the tests
           command: npm test
+      - run: bash .circleci/setup-heroku.sh
+      - add_ssh_keys:
+          fingerprints:
+            - "cd:30:77:a3:8a:5f:cf:11:a6:64:5b:97:3a:df:15:7d"
+      - deploy:
+          name: Deploy to Heroku
+          command: |
+            git push heroku master
+            heroku run npm run deploy
