@@ -23,7 +23,6 @@ jobs:
           fingerprints:
             - "cd:30:77:a3:8a:5f:cf:11:a6:64:5b:97:3a:df:15:7d"
       - deploy:
-          name: Deploy to Heroku
+          name: Deploy Master to Heroku
           command: |
             git push heroku master
-            heroku run npm run deploy
