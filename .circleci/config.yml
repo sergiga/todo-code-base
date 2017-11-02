@@ -1,0 +1,23 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/todo-code-base
+    docker:
+      - image: circleci/node:7
+    steps:
+      - checkout
+      - run:
+          name: Update NPM to latest version
+          command: 'sudo npm install -g npm@latest'
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+      - run:
+          name: Install project dependencies
+          command: npm install
+      - save_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
+          paths:
+            - ./node_modules
+      - run:
+          name: Run the tests
+          command: npm test
