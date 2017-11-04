@@ -3,7 +3,7 @@
     <input 
       type="text"
       placeholder="Introduce una tarea..."
-      v-model="body">
+      v-model="todo">
 
     <button type="submit">Añadir</button>
   </form>
@@ -13,13 +13,14 @@
 export default {
   data() {
     return {
-      body: '',
+      todo: '',
     };
   },
   methods: {
     onSubmit() {
-      if (this.body) {
-        this.$emit('addTodo', this.body);
+      if (this.todo) {
+        this.$emit('addTodo', this.todo);
+        this.todo = '';
       }
     },
   },

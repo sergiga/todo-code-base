@@ -10,30 +10,30 @@ describe('TodoForm.vue', () => {
     vm = wrapper.vm;
   });
 
-  it('should display the todo form', () => {
+  it('displays the todo form', () => {
     expect(vm.$el.tagName)
       .to.equal('FORM');
   });
 
-  it('should display an input', () => {
+  it('displays an input', () => {
     expect(vm.$el.querySelector('input'))
       .to.exist;
   });
 
-  it('should display a button', () => {
+  it('displays a button', () => {
     expect(vm.$el.querySelector('button'))
       .to.exist;
   });
 
-  it('should initialize body data to "\'\'"', () => {
-    expect(vm.body).to.equal('');
+  it('initializes todo data to "\'\'"', () => {
+    expect(vm.todo).to.equal('');
   });
 
-  it('should emit addTodo with body on submit if todo is not empty', (done) => {
-    vm.body = 'Testing...';
+  it('should emit addTodo with todo on submit if todo is not empty', (done) => {
+    vm.todo = 'Testing...';
 
     vm.$on('addTodo', (val) => {
-      expect(val).to.equal(vm.body);
+      expect(val).to.equal(vm.todo);
       done();
     });
 
@@ -49,4 +49,13 @@ describe('TodoForm.vue', () => {
     const button = wrapper.find('button');
     button.trigger('click');
   }).timeout(10);
+
+  it('clears the input when the submit button is clicked', () => {
+    vm.todo = 'Testing...';
+
+    const button = wrapper.find('button');
+    button.trigger('click');
+
+    expect(vm.todo).to.equal('');
+  });
 });
