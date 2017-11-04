@@ -10,18 +10,31 @@ describe('TodoForm.vue', () => {
     vm = wrapper.vm;
   });
 
-  it('displays the todo form', () => {
+  it('displays the todo form container', () => {
     expect(vm.$el.tagName)
-      .to.equal('FORM');
+      .to.equal('DIV');
+
+    expect(vm.$el.className)
+      .to.equal('form-container');
   });
 
-  it('displays an input', () => {
-    expect(vm.$el.querySelector('input'))
+  it('displays the todo form', () => {
+    expect(wrapper.find('form'))
       .to.exist;
   });
 
+  it('displays an input', () => {
+    expect(wrapper.find('input'))
+      .to.exist;
+  });
+
+  it('displays a label with the content "Introduce una tarea..."', () => {
+    expect(wrapper.find('label').text())
+      .to.equal('Introduce una tarea...');
+  });
+
   it('displays a button', () => {
-    expect(vm.$el.querySelector('button'))
+    expect(wrapper.find('button'))
       .to.exist;
   });
 
