@@ -38,15 +38,15 @@ describe('TodoForm.vue', () => {
       .to.exist;
   });
 
-  it('initializes todo data to "\'\'"', () => {
-    expect(vm.todo).to.equal('');
+  it('initializes description data to "\'\'"', () => {
+    expect(vm.description).to.equal('');
   });
 
   it('should emit addTodo with todo on submit if todo is not empty', (done) => {
-    vm.todo = 'Testing...';
+    vm.description = 'Testing...';
 
     vm.$on('addTodo', (val) => {
-      expect(val).to.equal(vm.todo);
+      expect(val).to.deep.equal({ description: vm.description });
       done();
     });
 
@@ -64,11 +64,11 @@ describe('TodoForm.vue', () => {
   }).timeout(10);
 
   it('clears the input when the submit button is clicked', () => {
-    vm.todo = 'Testing...';
+    vm.description = 'Testing...';
 
     const button = wrapper.find('button');
     button.trigger('click');
 
-    expect(vm.todo).to.equal('');
+    expect(vm.description).to.equal('');
   });
 });

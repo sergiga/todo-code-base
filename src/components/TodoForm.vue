@@ -6,7 +6,7 @@
       <input
         id="todo-input"
         type="text"
-        v-model="todo">
+        v-model="description">
 
       <label for="todo-input">Introduce una tarea...</label>
 
@@ -18,16 +18,20 @@
 
 <script>
 export default {
+  name: 'todo-form',
+  props: {
+    addTodo: Function,
+  },
   data() {
     return {
-      todo: '',
+      description: '',
     };
   },
   methods: {
     onSubmit() {
-      if (this.todo) {
-        this.$emit('addTodo', this.todo);
-        this.todo = '';
+      if (this.description) {
+        this.$emit('addTodo', { description: this.description });
+        this.description = '';
       }
     },
   },
