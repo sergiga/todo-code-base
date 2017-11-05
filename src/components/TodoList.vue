@@ -15,6 +15,7 @@
           <div class="box"></div>
         </label>
         <span class="todo-description">{{ todo.description }}</span>
+        <button class="todo-action-remove"></button>
       </li>
     </ul>
   </div>
@@ -77,10 +78,10 @@ export default {
 [type="checkbox"] + label::after {
   content: '';
   position: absolute;
-  top: 2px; 
+  top: 4px; 
   left: 4px;
   font-size: 1.3em;
-  line-height: 0.9;
+  line-height: 0.8;
   color: #4FC08D;
 }
 
@@ -102,5 +103,25 @@ label .box {
 
 [type="checkbox"]:checked + label .box {
   border: 2px solid #4FC08D;
+}
+
+.todo-description {
+  flex: 1;
+}
+
+.todo-action-remove {
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: transparent;
+}
+
+.todo-action-remove::after {
+  content: '\2718';
+  position: relative;
+  top: 2px;
+  font-size: 2em;
+  line-height: 0.8;
+  color: #F44336;
 }
 </style>

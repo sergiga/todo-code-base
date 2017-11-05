@@ -87,6 +87,7 @@ describe('TodoList.vue', () => {
       expect(el.querySelector('span').innerHTML.trim())
         .to.equal(`Testing ${i}...`);
       expect(el.querySelector('label')).to.exist;
+      expect(el.querySelector('button.todo-action-remove')).to.exist;
     });
   });
 });
