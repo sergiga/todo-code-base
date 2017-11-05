@@ -66,6 +66,10 @@ input:focus, input:focus ~ button {
   border-color: #4FC08D;
 }
 
+button:focus {
+  outline: none;
+}
+
 label {
   font-weight: 100;
   font-size: 1em;

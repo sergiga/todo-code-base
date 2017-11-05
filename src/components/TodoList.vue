@@ -1,7 +1,7 @@
 <template>
   <div>
     <todo-form @addTodo="addTodo" />
-    <ul>
+    <ul class="list-container">
       <li v-for="todo in todos"
         :key="todo.id"
         class="list-item">
@@ -36,5 +36,15 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
+.list-container {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list-item {
+  font-size: 1.4em;
+  padding: 10px;
+}
 </style>

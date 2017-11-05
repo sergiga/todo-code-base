@@ -27,9 +27,12 @@ body {
   width: 1100px;
   margin: auto;
   margin-top: 60px;
-  text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+}
+
+h1 {
+  text-align: center;
 }
 
 @media (max-width: 1100px) {
