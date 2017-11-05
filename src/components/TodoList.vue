@@ -28,7 +28,10 @@ export default {
   },
   methods: {
     addTodo(todo) {
-      const newTodo = Object.assign({}, todo, { id: nextId });
+      const newTodo = Object.assign({}, todo, {
+        id: nextId,
+        completed: false,
+      });
       this.todos.push(newTodo);
       nextId += 1;
     },

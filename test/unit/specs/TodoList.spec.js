@@ -27,13 +27,14 @@ describe('TodoList.vue', () => {
       .to.be.true;
   });
 
-  it('adds a "todo" on addTodo event with an id and a description', () => {
+  it('adds a "todo" on addTodo event', () => {
     const todoFormWrapper = wrapper.find(TodoForm);
     todoFormWrapper.vm.$emit('addTodo', { description: 'Testing...' });
 
     expect(vm.todos[0]).to.deep.equal({
       id: 0,
       description: 'Testing...',
+      completed: false,
     });
   });
 
@@ -45,10 +46,12 @@ describe('TodoList.vue', () => {
           {
             id: 0,
             description: 'Testing 0...',
+            completed: false,
           },
           {
             id: 1,
             description: 'Testing 1...',
+            completed: false,
           },
         ],
       },
