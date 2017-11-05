@@ -5,7 +5,16 @@
       <li v-for="todo in todos"
         :key="todo.id"
         class="list-item">
-        {{ todo.description }}
+        <input 
+          type="checkbox"
+          :id="`completed-${ todo.id }`" 
+          class="completed" 
+          checked="false"
+          v-model="todo.completed">
+        <label :for="`completed-${ todo.id }`">
+          <div class="box"></div>
+        </label>
+        <span class="todo-description">{{ todo.description }}</span>
       </li>
     </ul>
   </div>
@@ -46,7 +55,52 @@ export default {
 }
 
 .list-item {
+  display: flex;
+  align-items: center;
   font-size: 1.4em;
-  padding: 10px;
+  padding: 10px 0;
+  user-select: none;
+}
+
+.completed {
+  display: none;
+}
+
+.completed + label {
+  position: relative;
+  display: inherit;
+  top: 0;
+  left: 0;
+  margin-right: 20px;
+}
+
+[type="checkbox"] + label::after {
+  content: '';
+  position: absolute;
+  top: 2px; 
+  left: 4px;
+  font-size: 1.3em;
+  line-height: 0.9;
+  color: #4FC08D;
+}
+
+[type="checkbox"]:not(:checked) + label::after {
+  content: '';
+}
+
+[type="checkbox"]:checked + label:after {
+  content: '✔';
+}
+
+label .box {
+  display: inline-block;
+  width: 26px;
+  height: 26px;
+  border-radius: 2px;
+  border: 2px solid #AEAEAE;
+}
+
+[type="checkbox"]:checked + label .box {
+  border: 2px solid #4FC08D;
 }
 </style>
