@@ -22,6 +22,11 @@ describe('TodoList.vue', () => {
     expect(defaultData.todos).to.be.an('array').that.is.empty;
   });
 
+  it('initializes the nextId data with 0', () => {
+    const defaultData = TodoList.data();
+    expect(defaultData.nextId).to.equal(0);
+  });
+
   it('renders the TodoForm component', () => {
     expect(wrapper.contains(TodoForm))
       .to.be.true;
@@ -33,6 +38,24 @@ describe('TodoList.vue', () => {
 
     expect(vm.todos[0]).to.deep.equal({
       id: 0,
+      description: 'Testing...',
+      completed: false,
+    });
+  });
+
+  it('adds an automated incremented id on addTodo event', () => {
+    const todoFormWrapper = wrapper.find(TodoForm);
+    todoFormWrapper.vm.$emit('addTodo', { description: 'Testing...' });
+    todoFormWrapper.vm.$emit('addTodo', { description: 'Testing...' });
+
+    expect(vm.todos[0]).to.deep.equal({
+      id: 0,
+      description: 'Testing...',
+      completed: false,
+    });
+
+    expect(vm.todos[1]).to.deep.equal({
+      id: 1,
       description: 'Testing...',
       completed: false,
     });

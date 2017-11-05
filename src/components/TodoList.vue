@@ -14,8 +14,6 @@
 <script>
 import TodoForm from '@/components/TodoForm';
 
-let nextId = 0;
-
 export default {
   name: 'todo-list',
   components: {
@@ -23,17 +21,18 @@ export default {
   },
   data() {
     return {
+      nextId: 0,
       todos: [],
     };
   },
   methods: {
     addTodo(todo) {
       const newTodo = Object.assign({}, todo, {
-        id: nextId,
+        id: this.nextId,
         completed: false,
       });
       this.todos.push(newTodo);
-      nextId += 1;
+      this.nextId += 1;
     },
   },
 };
