@@ -83,7 +83,10 @@ describe('TodoList.vue', () => {
     const els = Array.from(vm.$el.querySelectorAll('li.list-item'));
 
     els.forEach((el, i) => {
-      expect(el.innerHTML.trim()).to.equal(`Testing ${i}...`);
+      expect(el.querySelector('input.completed')).to.exist;
+      expect(el.querySelector('span').innerHTML.trim())
+        .to.equal(`Testing ${i}...`);
+      expect(el.querySelector('label')).to.exist;
     });
   });
 });
