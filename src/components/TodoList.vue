@@ -5,17 +5,17 @@
       <li v-for="todo in todos"
         :key="todo.id"
         class="list-item">
-        <input 
+        <input
           type="checkbox"
-          :id="`completed-${ todo.id }`" 
-          class="completed" 
+          :id="`completed-${ todo.id }`"
+          class="completed"
           checked="false"
           v-model="todo.completed">
         <label :for="`completed-${ todo.id }`">
           <div class="box"></div>
         </label>
         <span class="todo-description">{{ todo.description }}</span>
-        <button class="todo-action-remove"></button>
+        <button class="todo-action-remove" @click="removeTodo(todo.id)"></button>
       </li>
     </ul>
   </div>
@@ -43,6 +43,9 @@ export default {
       });
       this.todos.push(newTodo);
       this.nextId += 1;
+    },
+    removeTodo(id) {
+      this.todos = this.todos.filter(t => t.id !== id);
     },
   },
 };
@@ -78,7 +81,7 @@ export default {
 [type="checkbox"] + label::after {
   content: '';
   position: absolute;
-  top: 4px; 
+  top: 4px;
   left: 4px;
   font-size: 1.3em;
   line-height: 0.8;

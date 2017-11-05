@@ -90,4 +90,28 @@ describe('TodoList.vue', () => {
       expect(el.querySelector('button.todo-action-remove')).to.exist;
     });
   });
+
+  it('removes the todo on remove button click', () => {
+    const todo = {
+      id: 0,
+      description: 'Testing 0...',
+      completed: false,
+    };
+    const Constructor = Vue.extend(TodoList);
+    vm = new Constructor({
+      data: {
+        todos: [todo],
+      },
+    }).$mount();
+
+    expect(vm.todos).to.deep.equal([todo]);
+
+    const button = vm.$el.querySelector('button.todo-action-remove');
+
+    expect(button).to.exist;
+
+    button.click();
+
+    expect(vm.todos).to.be.an('array').that.is.empty;
+  });
 });
