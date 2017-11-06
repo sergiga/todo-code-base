@@ -162,4 +162,75 @@ describe('TodoList.vue', () => {
       completed: false,
     });
   });
+
+  it('shows all todos when all filter is selected', () => {
+    wrapper.setData({
+      todos: [
+        {
+          id: 0,
+          description: 'Testing 0...',
+          completed: false,
+        },
+        {
+          id: 1,
+          description: 'Testing 1...',
+          completed: true,
+        },
+      ],
+      filteredBy: 0,
+    });
+
+    const todos = wrapper.findAll('li.list-item');
+
+    expect(todos.length).to.equal(2);
+    todos.wrappers.forEach((todo, i) => {
+      expect(todo.text().trim()).to.equal(`Testing ${i}...`);
+    });
+  });
+
+  it('only shows active todos when active filter is selected', () => {
+    wrapper.setData({
+      todos: [
+        {
+          id: 0,
+          description: 'Testing 0...',
+          completed: false,
+        },
+        {
+          id: 1,
+          description: 'Testing 1...',
+          completed: true,
+        },
+      ],
+      filteredBy: 1,
+    });
+
+    const todos = wrapper.findAll('li.list-item');
+
+    expect(todos.length).to.equal(1);
+    expect(todos.wrappers[0].text().trim()).to.equal('Testing 0...');
+  });
+
+  it('only shows completed todos when active filter is selected', () => {
+    wrapper.setData({
+      todos: [
+        {
+          id: 0,
+          description: 'Testing 0...',
+          completed: false,
+        },
+        {
+          id: 1,
+          description: 'Testing 1...',
+          completed: true,
+        },
+      ],
+      filteredBy: 2,
+    });
+
+    const todos = wrapper.findAll('li.list-item');
+
+    expect(todos.length).to.equal(1);
+    expect(todos.wrappers[0].text().trim()).to.equal('Testing 1...');
+  });
 });

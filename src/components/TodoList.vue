@@ -3,7 +3,7 @@
     <filter-selector :filters="filters" @filterSelected="filterSelected" />
     <todo-form @addTodo="addTodo" />
     <ul class="list-container">
-      <li v-for="todo in todos"
+      <li v-for="todo in filteredTodos"
         :key="todo.id"
         class="list-item">
         <input
@@ -52,6 +52,18 @@ export default {
       ],
       filteredBy: 0,
     };
+  },
+  computed: {
+    filteredTodos() {
+      switch (this.filteredBy) {
+        case 1:
+          return this.todos.filter(t => !t.completed);
+        case 2:
+          return this.todos.filter(t => t.completed);
+        default:
+          return this.todos;
+      }
+    },
   },
   methods: {
     addTodo(todo) {
