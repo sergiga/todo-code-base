@@ -1,4 +1,3 @@
-import Vue from 'vue';
 import FilterSelector from '@/components/FilterSelector';
 import { shallow } from 'vue-test-utils';
 
@@ -29,27 +28,73 @@ describe('FilterSelector.vue', () => {
   });
 
   it('renders the filter items in "li" items', () => {
-    const Constructor = Vue.extend(FilterSelector);
-    vm = new Constructor({
-      propsData: {
-        filters: [
-          {
-            id: 0,
-            name: 'Testing 0...',
-          },
-          {
-            id: 1,
-            name: 'Testing 1...',
-          },
-        ],
-      },
-    }).$mount();
+    wrapper.setProps({
+      filters: [
+        {
+          id: 0,
+          name: 'Testing 0...',
+        },
+        {
+          id: 1,
+          name: 'Testing 1...',
+        },
+      ],
+    });
 
-    const els = Array.from(vm.$el.querySelectorAll('li.filter-item'));
+    const els = wrapper.findAll('li.filter-item');
 
-    els.forEach((el, i) => {
-      expect(el.innerHTML.trim())
+    expect(els).to.exist;
+    expect(els.length).to.equal(2);
+
+    els.wrappers.forEach((el, i) => {
+      expect(el.text().trim())
       .to.equal(`Testing ${i}...`);
     });
+  });
+
+  it('should emit input with the selected item id on item click', (done) => {
+    wrapper.setProps({
+      filters: [
+        {
+          id: 0,
+          name: 'Testing 0...',
+        },
+        {
+          id: 1,
+          name: 'Testing 1...',
+        },
+      ],
+    });
+
+    vm.$on('input', (val) => {
+      expect(val).to.equal(0);
+      done();
+    });
+
+    const item = wrapper.find('li.filter-item');
+    item.trigger('click');
+  });
+
+  it('adds \'selected\' class to the selected item', () => {
+    wrapper.setProps({
+      filters: [
+        {
+          id: 0,
+          name: 'Testing 0...',
+        },
+        {
+          id: 1,
+          name: 'Testing 1...',
+        },
+      ],
+    });
+
+    wrapper.setData({
+      selected: 0,
+    });
+
+    const item = wrapper.find('li.filter-item.selected');
+    expect(item).to.exist;
+    expect(item.text().trim()).to.equal('Testing 0...');
   });
 });

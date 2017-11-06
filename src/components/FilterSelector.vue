@@ -1,9 +1,10 @@
 <template>
   <div class="filter-container">
     <ul class="filter-list">
-      <li v-for="(filter, i) in filters"
+      <li v-for="filter in filters"
         :key="filter.id"
-        :class="['filter-item', selected === i ? 'selected' : '']">
+        :class="isSelected(filter.id)"
+        @click="filterSelected(filter.id)">
         {{ filter.name }}
       </li>
     </ul>
@@ -20,6 +21,18 @@ export default {
     return {
       selected: -1,
     };
+  },
+  methods: {
+    filterSelected(id) {
+      this.selected = id;
+      this.$emit('input', this.selected);
+    },
+    isSelected(id) {
+      const className = this.selected === id
+        ? ['filter-item', 'selected']
+        : ['filter-item'];
+      return className;
+    },
   },
 };
 </script>
