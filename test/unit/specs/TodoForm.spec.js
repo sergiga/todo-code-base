@@ -61,7 +61,7 @@ describe('TodoForm.vue', () => {
     });
     const button = wrapper.find('button');
     button.trigger('click');
-  }).timeout(10);
+  }).timeout(100);
 
   it('clears the input when the submit button is clicked', () => {
     vm.description = 'Testing...';
