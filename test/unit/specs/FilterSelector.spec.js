@@ -15,9 +15,9 @@ describe('FilterSelector.vue', () => {
       .to.equal('filter-selector');
   });
 
-  it('initializes the selected data to -1', () => {
+  it('initializes the selected data to 0', () => {
     const defaultData = FilterSelector.data();
-    expect(defaultData.selected).to.equals(-1);
+    expect(defaultData.selected).to.equals(0);
   });
 
   it('renders the filter container', () => {
@@ -52,7 +52,7 @@ describe('FilterSelector.vue', () => {
     });
   });
 
-  it('should emit input with the selected item id on item click', (done) => {
+  it('should emit filterSelected with the selected item id on item click', (done) => {
     wrapper.setProps({
       filters: [
         {
@@ -66,7 +66,7 @@ describe('FilterSelector.vue', () => {
       ],
     });
 
-    vm.$on('input', (val) => {
+    vm.$on('filterSelected', (val) => {
       expect(val).to.equal(0);
       done();
     });

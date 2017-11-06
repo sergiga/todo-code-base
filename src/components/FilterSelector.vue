@@ -19,13 +19,13 @@ export default {
   },
   data() {
     return {
-      selected: -1,
+      selected: 0,
     };
   },
   methods: {
     filterSelected(id) {
       this.selected = id;
-      this.$emit('input', this.selected);
+      this.$emit('filterSelected', this.selected);
     },
     isSelected(id) {
       const className = this.selected === id
