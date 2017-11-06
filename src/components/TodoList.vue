@@ -1,5 +1,6 @@
 <template>
   <div>
+    <filter-selector :filters="filters" @filterSelected="filterSelected" />
     <todo-form @addTodo="addTodo" />
     <ul class="list-container">
       <li v-for="todo in todos"
@@ -22,17 +23,34 @@
 </template>
 
 <script>
+import FilterSelector from '@/components/FilterSelector';
 import TodoForm from '@/components/TodoForm';
 
 export default {
   name: 'todo-list',
   components: {
+    FilterSelector,
     TodoForm,
   },
   data() {
     return {
       nextId: 0,
       todos: [],
+      filters: [
+        {
+          id: 0,
+          name: 'All',
+        },
+        {
+          id: 1,
+          name: 'Active',
+        },
+        {
+          id: 2,
+          name: 'Completed',
+        },
+      ],
+      filteredBy: 0,
     };
   },
   methods: {
@@ -46,6 +64,9 @@ export default {
     },
     removeTodo(id) {
       this.todos = this.todos.filter(t => t.id !== id);
+    },
+    filterSelected(id) {
+      this.filteredBy = id;
     },
   },
 };
