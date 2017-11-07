@@ -1,12 +1,14 @@
 <template>
   <div id="app">
-    <h1>¿Qué Hacer?</h1>
+    <div class="header">
+      <h1>¿Qué Hacer?</h1>
+    </div>
     <todo-list />
   </div>
 </template>
 
 <script>
-import TodoList from '@/components/TodoList';
+import TodoList from './components/TodoList';
 
 export default {
   components: {
@@ -24,27 +26,17 @@ body {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  width: 1100px;
-  margin: auto;
-  margin-top: 60px;
   color: #2c3e50;
-  margin-top: 60px;
+  margin: 60px 60px 0 60px;
 }
 
 h1 {
   text-align: center;
 }
 
-@media (max-width: 1100px) {
-  #app {
-    width: auto;
-    margin: 60px 60px 0 60px;
-  } 
-}
-
 @media (max-width: 768px) {
   #app {
-    margin: 60px 20px 0 20px;
-  } 
+    margin: 20px 10px 0px 10px;
+  }
 }
 </style>

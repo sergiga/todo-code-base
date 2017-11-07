@@ -1,39 +1,73 @@
 <template>
-  <div>
-    <todo-form @addTodo="addTodo" />
-    <ul class="list-container">
-      <li v-for="todo in todos"
-        :key="todo.id"
-        class="list-item">
-        <input
-          type="checkbox"
-          :id="`completed-${ todo.id }`"
-          class="completed"
-          checked="false"
-          v-model="todo.completed">
-        <label :for="`completed-${ todo.id }`">
-          <div class="box"></div>
-        </label>
-        <span class="todo-description">{{ todo.description }}</span>
-        <button class="todo-action-remove" @click="removeTodo(todo.id)"></button>
-      </li>
-    </ul>
+  <div class="app-container">
+    <div class="side-container">
+      <filter-selector :filters="filters" @filterSelected="filterSelected" />
+    </div>
+    <div class="main-container">
+      <todo-form @addTodo="addTodo" />
+      <ul class="list-container">
+        <li v-for="todo in filteredTodos"
+          :key="todo.id"
+          class="list-item">
+          <input
+            type="checkbox"
+            :id="`completed-${ todo.id }`"
+            class="completed"
+            checked="false"
+            v-model="todo.completed">
+          <label :for="`completed-${ todo.id }`">
+            <div class="box"></div>
+          </label>
+          <span class="todo-description">{{ todo.description }}</span>
+          <button class="todo-action-remove" @click="removeTodo(todo.id)"></button>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
 <script>
-import TodoForm from '@/components/TodoForm';
+import FilterSelector from './FilterSelector';
+import TodoForm from './TodoForm';
 
 export default {
   name: 'todo-list',
   components: {
+    FilterSelector,
     TodoForm,
   },
   data() {
     return {
       nextId: 0,
       todos: [],
+      filters: [
+        {
+          id: 0,
+          name: 'All',
+        },
+        {
+          id: 1,
+          name: 'Active',
+        },
+        {
+          id: 2,
+          name: 'Completed',
+        },
+      ],
+      filteredBy: 0,
     };
+  },
+  computed: {
+    filteredTodos() {
+      switch (this.filteredBy) {
+        case 1:
+          return this.todos.filter(t => !t.completed);
+        case 2:
+          return this.todos.filter(t => t.completed);
+        default:
+          return this.todos;
+      }
+    },
   },
   methods: {
     addTodo(todo) {
@@ -47,11 +81,27 @@ export default {
     removeTodo(id) {
       this.todos = this.todos.filter(t => t.id !== id);
     },
+    filterSelected(id) {
+      this.filteredBy = id;
+    },
   },
 };
 </script>
 
 <style scoped>
+.app-container {
+  display: flex;
+}
+
+.side-container {
+  flex: 0 0 200px;
+  padding-right: 30px;
+}
+
+.main-container {
+  flex: 1 1;
+}
+
 .list-container {
   list-style: none;
   padding: 0;
@@ -126,5 +176,56 @@ label .box {
   font-size: 2em;
   line-height: 0.8;
   color: #F44336;
+}
+
+@media (max-width: 1100px) {
+  .app-container {
+    flex-wrap: wrap;
+  }
+
+  .side-container, .main-container {
+    flex: 0 0 100%;
+  }
+
+  .side-container {
+    padding: 0;
+    margin-bottom: 15px;
+  }
+
+  .list-container {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .list-item {
+    font-size: 1em;
+  }
+
+  .completed + label {
+    top: 0;
+    left: 0;
+  }
+
+  [type="checkbox"] + label::after {
+    top: 5px;
+    left: 5px;
+    font-size: 1em;
+  }
+
+  label .box {
+    width: 18px;
+    height: 18px;
+  }
+
+  .todo-action-remove {
+    height: 18px;
+  }
+
+  .todo-action-remove::after {
+    font-size: 1.4em;
+  }
 }
 </style>

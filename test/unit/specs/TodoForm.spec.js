@@ -61,7 +61,7 @@ describe('TodoForm.vue', () => {
     });
     const button = wrapper.find('button');
     button.trigger('click');
-  }).timeout(10);
+  }).timeout(100);
 
   it('clears the input when the submit button is clicked', () => {
     vm.description = 'Testing...';
@@ -70,5 +70,13 @@ describe('TodoForm.vue', () => {
     button.trigger('click');
 
     expect(vm.description).to.equal('');
+  });
+
+  it('adds the \'has-text\' class to the input when it has text', () => {
+    wrapper.setData({
+      description: 'Testing...',
+    });
+
+    expect(wrapper.find('input#todo-input').hasClass('has-text')).to.be.true;
   });
 });
