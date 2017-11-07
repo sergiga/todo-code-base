@@ -27,8 +27,8 @@
 </template>
 
 <script>
-import FilterSelector from '@/components/FilterSelector';
-import TodoForm from '@/components/TodoForm';
+import FilterSelector from './FilterSelector';
+import TodoForm from './TodoForm';
 
 export default {
   name: 'todo-list',
