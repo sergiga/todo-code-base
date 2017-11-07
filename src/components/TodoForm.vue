@@ -1,18 +1,18 @@
 <template>
   <div class="form-container">
     <form @submit.prevent="onSubmit">
+      <div class="form-control">
+        <input
+          id="todo-input"
+          type="text"
+          v-model="description"
+          :class="hasText">
 
-    <div class="form-control">
-      <input
-        id="todo-input"
-        type="text"
-        v-model="description">
+        <label for="todo-input">Introduce una tarea...</label>
 
-      <label for="todo-input">Introduce una tarea...</label>
-
-      <button type="submit">Añadir</button>
-    </div>
-  </form>
+        <button type="submit">Añadir</button>
+      </div>
+    </form>
   </div>
 </template>
 
@@ -26,6 +26,11 @@ export default {
     return {
       description: '',
     };
+  },
+  computed: {
+    hasText() {
+      return this.description ? ['has-text'] : [];
+    },
   },
   methods: {
     onSubmit() {
@@ -45,8 +50,9 @@ export default {
 }
 
 input, button {
+  width: 0px;
   height: 45px;
-  margin: 15px 0px;
+  margin: 0px;
   font-size: 1em;
   color: #555;
   border: 1px solid #7C7C7C;
@@ -76,15 +82,15 @@ label {
   position: absolute;
   pointer-events: none;
   left: 20px;
-  top: 29px;
+  top: 14px;
   -webkit-transition: all .18s ease;
   -o-transition: .18s ease all;
   transition: all .18s ease;
   color: #AEAEAE;
 }
 
-input:focus + label {
-  top: 20px;
+input:focus + label, input.has-text + label {
+  top: 5px;
   bottom: 10px;
   left: 20px;
   font-size: .55em;
