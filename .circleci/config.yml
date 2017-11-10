@@ -22,7 +22,8 @@ jobs:
       enabled: true
     working_directory: ~/todo-code-base
     steps:
-      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Run the tests
           command: npm test
@@ -32,7 +33,6 @@ jobs:
         enabled: true
     working_directory: ~/todo-code-base
     steps:
-      - checkout
       - run:
           name: Setup Heroku
           command: bash .circleci/setup-heroku.sh
