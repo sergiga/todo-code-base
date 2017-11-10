@@ -22,6 +22,7 @@ jobs:
       - image: circleci/node:7
     working_directory: ~/todo-code-base
     steps:
+      - checkout
       - restore_cache:
           key: dependency-cache-{{ checksum "package.json" }}
       - run:
