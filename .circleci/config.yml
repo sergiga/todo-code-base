@@ -18,6 +18,8 @@ jobs:
             - ./node_modules
   
   test:
+    docker:
+      - image: circleci/node:7
     machine:
       enabled: true
     working_directory: ~/todo-code-base
