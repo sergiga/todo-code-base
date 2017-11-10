@@ -1,9 +1,10 @@
-version: 2
+version: 2.0
+
 jobs:
   build:
-    working_directory: ~/todo-code-base
     docker:
       - image: circleci/node:7
+    working_directory: ~/todo-code-base
     steps:
       - checkout
       - restore_cache:
@@ -15,16 +16,47 @@ jobs:
           key: dependency-cache-{{ checksum "package.json" }}
           paths:
             - ./node_modules
+  
+  test:
+    machine:
+      enabled: true
+    working_directory: ~/todo-code-base
+    steps:
+      - checkout
+      - restore_cache:
+          key: dependency-cache-{{ checksum "package.json" }}
       - run:
           name: Run the tests
           command: npm test
-      - run: bash .circleci/setup-heroku.sh
+    
+  deploy:
+    machine:
+        enabled: true
+    working_directory: ~/todo-code-base
+    steps:
+      - checkout
+      - run:
+          name: Setup Heroku
+          command: bash .circleci/setup-heroku.sh
       - add_ssh_keys:
           fingerprints:
             - "cd:30:77:a3:8a:5f:cf:11:a6:64:5b:97:3a:df:15:7d"
-      - deploy:
-          name: Deploy Master to Heroku
+      - run:
+          name: Push master to Heroku
           command: |
-            if [ "${CIRCLE_BRANCH}" == "master" ]; then
-              git push heroku master
-            fi
+            git push heroku master
+            
+workflows:
+  version: 2
+  build-test-and-deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - deploy:
+          requires:
+            - test
+          filters:
+            branches:
+              only: master
